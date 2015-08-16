@@ -1,0 +1,42 @@
+class Solution:
+    # find the largest sum of subarray which cross the mid point
+    def maxCrossingSubArray(self, nums):
+        low = 0
+        high = len(nums) - 1
+        mid = (low + high)/2
+        
+        #search in the left half
+        leftSum = -sys.maxint - 1
+        s = 0
+        for idx in range(mid, low - 1, -1):
+            s += nums[idx]
+            #find the max sum and the index in the left part
+            if s > leftSum:
+                leftSum = s
+                maxLeftIdx = idx
+        #search in the right half
+        rightSum = -sys.maxint - 1
+        s = 0
+        for idx in range(mid + 1, high + 1, 1):
+            s += nums[idx]
+            if s > rightSum:
+                rightSum = s
+                maxRightIdx = idx
+            
+        return leftSum + rightSum
+            
+        
+    # @param {integer[]} nums
+    # @return {integer}
+    def maxSubArray(self, nums):
+        #base case: only one element
+        if len(nums) == 1:
+            return nums[0]
+        else:
+            low = 0
+            high = len(nums) - 1
+            mid = (low + high)/2
+            maxLeft = self.maxSubArray(nums[0:mid + 1])
+            maxRight = self.maxSubArray(nums[mid + 1:])
+            maxCross = self.maxCrossingSubArray(nums)
+            return max(maxLeft, max(maxRight, maxCross))
