@@ -1,0 +1,15 @@
+works but didn't pass the Leetcode online judgement
+the error is: maxmum memory exceeded
+It works to showcase the main idea
+Instead of passing the whole preorder and inorder lists,
+one alternative is to pass the starting and ending indexes of sub preorder and inorder lists
+if one doesn't use sys.setrecursionlimit to change the recursive depth,
+this function can be used to test the default call depth:
+
+'''
+# preorder and inorder are identical
+preorder = range(0,973)
+inorder = range(0,973)
+s = Solution()
+tree = s.buildTree(preorder, inorder)
+'''
